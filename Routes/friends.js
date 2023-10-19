@@ -23,7 +23,7 @@ const handleDeleteFriends = (req,res,friends) =>{
 } 
 
 module.exports = {
-handleDeleteFriends,
-handleGetFriends,
-handlePostFriends
+    handleDeleteFriends,
+    handleGetFriends,
+    handlePostFriends
 }
