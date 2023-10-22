@@ -1,5 +1,5 @@
 // const http = require('http')
-const {handleDeleteFriends,handlePostFriends,handleGetFriends} = require('./Routes/friends')
+const {handleDeleteFriends,handlePostFriends,handleGetFriends, handleGetFriendID} = require('./Routes/friends')
 const {handleGetMessages,handlePostMessages} = require('./Routes/messages')
 const express = require('express');
 
@@ -22,6 +22,7 @@ app.get('/',(req,res)=>{ res.send("Welcome to my express project")})
 app.get('/messages',(req,res)=>handleGetMessages(req,res,messages))
 app.post('/messages',(req,res)=>handlePostMessages(req,res,messages))
 
+app.get('/friends/:id',(req,res)=> handleGetFriendID(req, res, friends));
 app.get('/friends',(req,res)=> handleGetFriends(req, res, friends));
 app.post('/friends', (req,res)=> handlePostFriends(req, res, friends));
 app.delete(`/friends/:id`, (req,res)=> handleDeleteFriends(req, res, friends)); 
