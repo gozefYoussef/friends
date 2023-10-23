@@ -1,22 +1,23 @@
-// const http = require('http')
-const {handleDeleteFriends,handlePostFriends,handleGetFriends, handleGetFriendID} = require('./Routes/friends')
-const {handleGetMessages,handlePostMessages} = require('./Routes/messages')
+const friends = require('./models/friends.model');
+const messages = require('./models/messages.model');
+
+const {handleDeleteFriends,handlePostFriends,handleGetFriends, handleGetFriendID} = require('./controllers/friends.controller')
+const {handleGetMessages,handlePostMessages} = require('./controllers/messages.controller')
 const express = require('express');
 
 const app = express();
 const port = 3000
 
+//Middleware
 app.use(express.json());
-
-let messages = [
-    {id: 10,name: "Tito",},
-    {id:11,name: 'jozza',}
-]
-let friends = [
-    {id: 1, name: 'Sir Issac Newton'},
-    {id:2, name: 'Sir Joseph Atef'}
-]
-
+app.use((req,res,next)=>{
+    const start = Date.now();
+    next();
+    const delta = Date.now() - start;
+    console.log(`${req.method} ${req.url} ${delta}ms`)
+})
+// const friendsRouter = express.Router()
+////
 app.get('/',(req,res)=>{ res.send("Welcome to my express project")})
 
 app.get('/messages',(req,res)=>handleGetMessages(req,res,messages))
