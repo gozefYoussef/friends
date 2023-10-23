@@ -16,17 +16,22 @@ app.use((req,res,next)=>{
     const delta = Date.now() - start;
     console.log(`${req.method} ${req.url} ${delta}ms`)
 })
-// const friendsRouter = express.Router()
+const friendsRouter = express.Router();
+const messagesRouter = express.Router();
+
 ////
-app.get('/',(req,res)=>{ res.send("Welcome to my express project")})
+messagesRouter.get('/',(req,res)=>{ res.send("Welcome to my express project")})
 
-app.get('/messages',(req,res)=>handleGetMessages(req,res,messages))
-app.post('/messages',(req,res)=>handlePostMessages(req,res,messages))
+messagesRouter.get('/',(req,res)=>handleGetMessages(req,res,messages))
+messagesRouter.post('/',(req,res)=>handlePostMessages(req,res,messages))
 
-app.get('/friends/:id',(req,res)=> handleGetFriendID(req, res, friends));
-app.get('/friends',(req,res)=> handleGetFriends(req, res, friends));
-app.post('/friends', (req,res)=> handlePostFriends(req, res, friends));
-app.delete(`/friends/:id`, (req,res)=> handleDeleteFriends(req, res, friends)); 
-  
+app.use('/messages',messagesRouter)
+
+friendsRouter.get('/:id',(req,res)=> handleGetFriendID(req, res, friends));
+friendsRouter.get('/',(req,res)=> handleGetFriends(req, res, friends));
+friendsRouter.post('/', (req,res)=> handlePostFriends(req, res, friends));
+friendsRouter.delete(`/:id`, (req,res)=> handleDeleteFriends(req, res, friends)); 
+
+app.use('/friends',friendsRouter);
 
 app.listen(port,()=>{console.log(`liseten on ${port}`)})
