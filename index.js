@@ -7,7 +7,6 @@ const app = express();
 const port = 3000
 
 app.use(express.json());
-app.use('site',express.static(path.join(__dirname,'public')))
 
 app.use((req,res,next)=>{
     const start = Date.now();
@@ -16,6 +15,7 @@ app.use((req,res,next)=>{
     console.log(`${req.method} ${req.baseUrl} ${req.url} ${delta}ms`)
 })
 app.get('/',(req,res)=>{ res.send("Welcome to my express project")})
+app.use('/site',express.static(path.join(__dirname,'public')));
 
 
 app.use('/messages',messagesRouter)
