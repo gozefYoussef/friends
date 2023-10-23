@@ -1,4 +1,3 @@
-const friends = require('../models/friends.model')
 
 function handleGetFriends(req,res,friends){
     res.json(friends);
