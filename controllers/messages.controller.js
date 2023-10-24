@@ -1,6 +1,10 @@
 
 function handleGetMessages (req,res,messages){
-    res.json(messages)
+    // res.json(messages)
+    res.render('messages', {
+        title: 'Messages to my friends!',
+        friend: 'Elon musk',
+    })
     console.log('get messages works')
 }
 
