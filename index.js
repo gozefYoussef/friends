@@ -14,11 +14,16 @@ app.use((req,res,next)=>{
     const delta = Date.now() - start;
     console.log(`${req.method} ${req.baseUrl} ${req.url} ${delta}ms`)
 })
-app.get('/',(req,res)=>{ res.send("Welcome to my express project")})
+app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname,'views'));
 app.use('/site',express.static(path.join(__dirname,'public')));
 
+app.get('/',(req,res)=>{ res.render('index', {
+    title: 'My Loyal Friends',
+    caption: 'Let\'s go skiing!',
+})})
 
-app.use('/messages',messagesRouter)
+app.use('/messages',messagesRouter);
 
 app.use('/friends',friendsRouter);
 
